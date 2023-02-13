@@ -1,0 +1,4 @@
+image_build=True
+terraria_motd="Welcome to a test server"
+terraria_gameid=111
+server_share="/Users/jstlaurent/Documents/GitHub/cloud-playgrounds/AWS/Games/Terraria/test"

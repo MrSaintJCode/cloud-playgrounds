@@ -1,0 +1,15 @@
+FROM ubuntu:18.04
+
+RUN apt-get update -y && apt-get install -y wget tmux unzip vim
+#RUN apt-get install -y libc6:i386 libc6-dev-i386
+
+RUN mkdir game
+RUN cd game
+WORKDIR game
+
+RUN wget -O game.zip https://terraria.org/api/download/pc-dedicated-server/terraria-server-{{ terraria_version }}.zip
+RUN unzip -j -u game.zip -d server
+RUN cd server
+WORKDIR server
+RUN chmod +x TerrariaServer.bin.x86*
+ENTRYPOINT ["/game/server/TerrariaServer.bin.x86_64" "-c" "-config {{ game_config }}"]

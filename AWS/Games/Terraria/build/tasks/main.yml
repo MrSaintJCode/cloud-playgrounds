@@ -1,0 +1,40 @@
+---
+# tasks file for build
+- name: Template - Building Game Configuration file
+  template:
+    src: /templates/serverconfig.j2
+    dest: "{{ server_share }}/{{ terraria_gameid }}/serverconfig.txt"
+    mode: '6440'
+
+- name: Template - Building Dockerfile
+  template:
+    src: /templates/Dockerfile.j2
+    dest: "{{ server_share }}/{{ terraria_gameid }}/Dockerfile"
+    mode: '6440'
+
+- name: Docker - Verifying Container State
+  shell: docker ps -a --filter name=terraria_{{ terraria_gameid }} --format "{{.ID}}"
+  register: docker_ct_state
+
+- name: Docker - Container State Output
+  debug:
+    var: docker_ct_state
+
+- name: Docker - Stop and Remove Running Container
+  shell: docker stop $(docker ps -a --filter)
+  when: (docker_ct_state) and (docker_container == "stop")
+
+- name: Docker - Verifying Image
+  shell: docker images --filter reference=terraria_{{ terraria_gameid }} --format "{{.ID}}"
+  register: docker_image_state
+
+- name: Docker - Image State Output
+  debug:
+    var: docker_image_state
+
+- name: Docker - Rebuilding Image
+  shell: docker rmi $(docker images --filter reference=terraria_{{ terraria_gameid }} --format "{{.ID}}") --force
+  when: (docker_image_state) and (docker_image == "rebuild")
+
+- name: Docker - Building Docker Image
+  shell: /usr/bin/docker build -t terraria_{{ terraria_gameid }} "{{ server_share }}/{{ terraria_gameid }}/Dockerfile"

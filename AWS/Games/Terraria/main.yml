@@ -1,0 +1,4 @@
+- name: Game Deployments for Terraria
+  hosts: localhost
+  roles:
+  - {role: build, when: "image_build is defined"}

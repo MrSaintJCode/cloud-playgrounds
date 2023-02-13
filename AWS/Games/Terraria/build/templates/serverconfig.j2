@@ -1,0 +1,103 @@
+#
+# Terraria Configuration Template
+# MrSaintJCode | Feb 2023
+#
+
+{% if terraria_worldfile is defined %}
+#Load a world and automatically start the server.
+#WARNING: Environment variables ($HOME, ~) don't work yet, so the stated file will be relatively loaded from "serverfiles" if the given path is relative.
+#world=~/.local/share/Terraria/Worlds/world1.wld
+world={{ terraria_worldfile }}
+{% endif %}
+
+#Creates a new world if none is found. World size is specified by: 1(small), 2(medium), and 3(large).
+autocreate={{ terraria_worldsize | default('2')}}
+
+#Sets the world seed when using autocreate
+#seed=AwesomeSeed
+
+#Sets the name of the world when using autocreate
+worldname={{ terraria_servername | default('Terraria Game Server')}}
+
+#Sets the difficulty of the world when using autocreate 0(classic), 1(expert), 2(master), 3(journey)
+difficulty={{ terraria_difficulty | default('0')}}
+
+#Sets the max number of players allowed on a server.  Value must be between 1 and 255
+maxplayers={{ terraria_maxplayers | default('8')}}
+
+#Set the port number
+port={{ terraria_serverport | default('7777')}}
+
+{% if terraria_serverpassword is defined %}
+#Set the server password
+password={{ terraria_serverpassword}}
+{% endif %}
+
+{% if terraria_motd is defined %}
+#Set the message of the day
+#motd=Please don’t cut the purple trees!
+motd={{ terraria_motd }}
+{% endif %}
+
+{% if terraria_worldpath is defined %}
+#Sets the folder where world files will be stored
+#WARNING: Environment variables ($HOME, ~) don't work yet, so the stated folder will be relatively created in "serverfiles" if the given path is relative.
+#worldpath=~/.local/share/Terraria/Worlds/
+worldpath={{ terraria_worldpath }}
+{% endif %}
+
+{% if terraria_backups is defined %}
+#Sets the number of rolling world backups to keep
+#worldrollbackstokeep=2
+worldrollbackstokeep={{ terraria_backups }}
+{% endif %}
+
+{% if terraria_banlist is defined %}
+#The location of the banlist. Defaults to "banlist.txt" in the working directory.
+#banlist=banlist.txt
+banlist={{ terraria_banlist }}
+{% endif %}
+
+{% if terraria_secure is defined %}
+#Adds addition cheat protection.
+secure=1
+{% endif %}
+
+#Sets the server language from its language code.
+#English = en-US, German = de-DE, Italian = it-IT, French = fr-FR, Spanish = es-ES, Russian = ru-RU, Chinese = zh-Hans, Portuguese = pt-BR, Polish = pl-PL,
+language={{ terraria_lang | default('en-US')}}
+
+{% if terraria_upnp is defined %}
+#Automatically forward ports with uPNP
+upnp=1
+{% endif %}
+
+{% if terraria_npcstream is defined %}
+#Reduces enemy skipping but increases bandwidth usage. The lower the number the less skipping will happen, but more data is sent. 0 is off.
+npcstream={{ terraria_npcstream }}
+{% endif %}
+
+#Default system priority 0:Realtime, 1:High, 2:AboveNormal, 3:Normal, 4:BelowNormal, 5:Idle
+priority={{ terraria_systemprior | default('1')}}
+
+{% if terraria_slowliquids is defined %}
+#Reduces maximum liquids moving at the same time. If enabled may reduce lags but liquids may take longer to settle.
+slowliquids={{ terraria_slowliquids }}
+{% endif %}
+
+#Journey mode power permissions for every individual power. 0: Locked for everyone, 1: Can only be changed by host, 2: Can be changed by everyone
+#journeypermission_time_setfrozen=2
+#journeypermission_time_setdawn=2
+#journeypermission_time_setnoon=2
+#journeypermission_time_setdusk=2
+#journeypermission_time_setmidnight=2
+#journeypermission_godmode=2
+#journeypermission_wind_setstrength=2
+#journeypermission_rain_setstrength=2
+#journeypermission_time_setspeed=2
+#journeypermission_rain_setfrozen=2
+#journeypermission_wind_setfrozen=2
+#journeypermission_increaseplacementrange=2
+#journeypermission_setdifficulty=2
+#journeypermission_biomespread_setfrozen=2
+#journeypermission_setspawnrate=2
